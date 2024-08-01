@@ -6,13 +6,15 @@
 
 int main(int argc, char **argv)
 {
-    if (argc != 3) {
-        fprintf(stderr, "Usage: %s [input] [output]\n", argv[0]);
+    if (argc != 4) {
+        fprintf(stderr, "Usage: %s [input] [output.c] [output.h] \n", argv[0]);
         return 0;
     }
 
     FILE *f = fopen(argv[1], "r");
     FILE *g = fopen(argv[2], "w");
+    FILE *h = fopen(argv[3], "w");
+
 
     for (;;) {
         char c;
@@ -21,10 +23,10 @@ int main(int argc, char **argv)
         }
 
         if (c == 'T') {
-            fprintf(g, "void* ");
             char str[STR_MAX + 1];
             fscanf(f, "%" STR(STR_MAX) "s", str);
-            fprintf(g, "%s () { return 0; }\n", str);
+            fprintf(g, "void* %s () { return 0; }\n", str);
+            fprintf(h, "void* %s ();\n", str);
         }
     }
 
