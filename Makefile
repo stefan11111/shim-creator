@@ -5,6 +5,7 @@ clean:
 	rm -f shim-creator
 
 install: shim-creator
+	mkdir -p ${DESTDIR}/usr/bin/
 	cp -f shim-creator ${DESTDIR}/usr/bin/shim-creator
 
 uninstall:
