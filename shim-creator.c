@@ -22,12 +22,25 @@ int main(int argc, char **argv)
             return 0;
         }
 
-        if (c == 'T') {
-            char str[STR_MAX + 1];
-            fscanf(f, "%" STR(STR_MAX) "s", str);
-            fprintf(g, "void* %s () { return 0; }\n", str);
-            fprintf(h, "void* %s ();\n", str);
+        if (c != ' ') {
+            continue;
         }
+        if (fscanf(f, "%c", &c) == EOF) {
+            return 0;
+        }
+        if (c != 'T') {
+            continue;
+        }
+        if (fscanf(f, "%c", &c) == EOF) {
+            return 0;
+        }
+        if (c != ' ') {
+            continue;
+        }
+        char str[STR_MAX + 1];
+        fscanf(f, "%" STR(STR_MAX) "s", str);
+        fprintf(g, "void* %s () { return 0; }\n", str);
+        fprintf(h, "void* %s ();\n", str);
     }
 
     /* unreachable */
